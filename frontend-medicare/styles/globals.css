@@ -1,0 +1,18 @@
+.box-image{
+  width: 130px;
+  height: 130px;
+  border-radius: 100%;
+  background-color: antiquewhite;
+}
+
+.sidebar-color{
+  background-color: aliceblue;
+}
+
+.box-icon{
+  height: 20px;
+  width: 20px;
+}
+.rounded-full{
+  border-radius: 100%;
+}
