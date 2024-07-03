@@ -7,13 +7,13 @@
 var app = require("../app");
 var debug = require("debug")("user-service:server");
 var http = require("http");
-var os = require("os");
+var host = process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0';
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.port || '3000');
+var port = normalizePort(process.env.port);
 app.set("port", port);
 
 /**
@@ -27,8 +27,7 @@ var server = http.createServer(app);
  */
 
 server.listen(port, () => {
-  const ip = getIPAddress();
-  console.log(`Server is running at http://${ip}:${port}/`);
+  console.log(`listening on port ${host}:${port}`);
 });
 server.on("error", onError);
 server.on("listening", onListening);
@@ -87,23 +86,4 @@ function onListening() {
   var addr = server.address();
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   debug("Listening on " + bind);
-}
-
-/**
- * Get the IP address of the server.
- */
-
-function getIPAddress() {
-  var interfaces = os.networkInterfaces();
-  for (var devName in interfaces) {
-    var iface = interfaces[devName];
-
-    for (var i = 0; i < iface.length; i++) {
-      var alias = iface[i];
-      if (alias.family === 'IPv4' && !alias.internal) {
-        return alias.address;
-      }
-    }
-  }
-  return '127.0.0.1';
 }
