@@ -6,7 +6,7 @@ const nextConfig = {
     user: {},
     token: null,
     refresh_token: null,
-    url: "http://0.0.0.0:3000",
+    url: process.env.url,
     data_pasien: {},
     no_rekam_medis: null,
   },
